@@ -62,21 +62,6 @@ PAYLOAD = {
             "text": HASH_MESSAGE
           },
         },
-        {
-          "type": "actions",
-          "elements": [
-            {
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": "Deploy Me!",
-              },
-              "value": "deploy_value",
-              "url": CI_SERVER_URL,
-              "action_id": "actionId-0"
-            }
-          ]
-        }
       ]
     }
   ]
@@ -88,3 +73,19 @@ print(r.content)
 # r.json()
 
 # curl -X POST -H 'Content-type: application/json' --data "$JSON" 
+
+        # {
+        #   "type": "actions",
+        #   "elements": [
+        #     {
+        #       "type": "button",
+        #       "text": {
+        #         "type": "plain_text",
+        #         "text": "Deploy Me!",
+        #       },
+        #       "value": "deploy_value",
+        #       "url": CI_SERVER_URL,
+        #       "action_id": "actionId-0"
+        #     }
+        #   ]
+        # }
