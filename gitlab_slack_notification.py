@@ -17,6 +17,7 @@ CI_COMMIT_BRANCH     = os.getenv('CI_COMMIT_BRANCH')
 CI_COMMIT_MESSAGE    = os.getenv('CI_COMMIT_MESSAGE')
 CI_COMMIT_SHA        = os.getenv('CI_COMMIT_SHA')
 CI_COMMIT_SHORT_SHA  = os.getenv('CI_COMMIT_SHORT_SHA')
+CI_COMMIT_TITLE      = os.getenv('CI_COMMIT_TITLE')
 CI_ENVIRONMENT_NAME  = os.getenv('CI_ENVIRONMENT_NAME')
 CI_JOB_ID            = os.getenv('CI_JOB_ID')
 CI_JOB_STATUS        = os.getenv('CI_JOB_STATUS')
@@ -32,7 +33,7 @@ BUTTON_URL           = CI_SERVER_URL
 
 DEPLOY_MESSAGE = "Deploy to {0} triggered by {1} - {2}".format(CI_ENVIRONMENT_NAME, CI_PIPELINE_SOURCE, CI_JOB_STATUS)
 COMMIT_MESSAGE = "<{0}|{1}/{2}> commit to {3} with job <{4}|{5}> by <{6}/{7}|{7}>".format(CI_PROJECT_URL, CI_PROJECT_NAMESPACE, CI_PROJECT_NAME, CI_COMMIT_BRANCH, CI_JOB_URL, CI_JOB_ID, CI_SERVER_URL, GITLAB_USER_LOGIN)
-HASH_MESSAGE   = "<{0}/-/commit/{1}|{2}> - {3}".format(CI_PROJECT_URL, CI_COMMIT_SHA, CI_COMMIT_SHORT_SHA, CI_COMMIT_MESSAGE)
+HASH_MESSAGE   = "<{0}/-/commit/{1}|{2}> - {3}".format(CI_PROJECT_URL, CI_COMMIT_SHA, CI_COMMIT_SHORT_SHA, CI_COMMIT_TITLE)
 
 
 HEADERS = {'Content-type': 'application/json'}
