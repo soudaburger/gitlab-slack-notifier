@@ -29,45 +29,86 @@ CI_PIPELINE_SOURCE   = os.getenv('CI_PIPELINE_SOURCE')
 CI_SERVER_URL        = os.getenv('CI_SERVER_URL')
 GITLAB_USER_LOGIN    = os.getenv('GITLAB_USER_LOGIN')
 SLACK_WEBHOOK_URL    = os.getenv('SLACK_WEBHOOK_URL')
+CONSUMERS            = os.getenv('CONSUMERS')
 BUTTON_URL           = CI_SERVER_URL
 
-DEPLOY_MESSAGE = "Deploy to {0} triggered by {1} - {2}".format(CI_ENVIRONMENT_NAME, CI_PIPELINE_SOURCE, CI_JOB_STATUS)
-COMMIT_MESSAGE = "<{0}|{1}/{2}> commit to {3} with job <{4}|{5}> by <{6}/{7}|{7}>".format(CI_PROJECT_URL, CI_PROJECT_NAMESPACE, CI_PROJECT_NAME, CI_COMMIT_BRANCH, CI_JOB_URL, CI_JOB_ID, CI_SERVER_URL, GITLAB_USER_LOGIN)
-HASH_MESSAGE   = "<{0}/-/commit/{1}|{2}> - {3}".format(CI_PROJECT_URL, CI_COMMIT_SHA, CI_COMMIT_SHORT_SHA, CI_COMMIT_TITLE)
+DEPLOY_MESSAGE    = "[{0}] triggered by {1} - {2}".format(CI_ENVIRONMENT_NAME, CI_PIPELINE_SOURCE, CI_JOB_STATUS)
+COMMIT_MESSAGE    = "<{0}|{1}/{2}> commit to {3} with job <{4}|{5}> by <{6}/{7}|{7}>".format(CI_PROJECT_URL, CI_PROJECT_NAMESPACE, CI_PROJECT_NAME, CI_COMMIT_BRANCH, CI_JOB_URL, CI_JOB_ID, CI_SERVER_URL, GITLAB_USER_LOGIN)
+HASH_MESSAGE      = "<{0}/-/commit/{1}|{2}> - {3}".format(CI_PROJECT_URL, CI_COMMIT_SHA, CI_COMMIT_SHORT_SHA, CI_COMMIT_TITLE)
+CONSUMERS_MESSAGE = "[CONSUMERS] {0}".format(CONSUMERS)
 
 
 HEADERS = {'Content-type': 'application/json'}
 
-PAYLOAD = {
-  "attachments": [
-    {
-      "color": "#36a64f",
-      "blocks": [
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": DEPLOY_MESSAGE
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": COMMIT_MESSAGE
-          }
-        },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": HASH_MESSAGE
+if CONSUMERS == "":
+  PAYLOAD = {
+    "attachments": [
+      {
+        "color": "#36a64f",
+        "blocks": [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": DEPLOY_MESSAGE
+            }
           },
-        },
-      ]
-    }
-  ]
-}
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": COMMIT_MESSAGE
+            }
+          },
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": HASH_MESSAGE
+            },
+          },
+        ]
+      }
+    ]
+  }
+else:
+  PAYLOAD = {
+    "attachments": [
+      {
+        "color": "#36a64f",
+        "blocks": [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": DEPLOY_MESSAGE
+            }
+          },
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": COMMIT_MESSAGE
+            }
+          },
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": HASH_MESSAGE
+            },
+          },
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": CONSUMERS_MESSAGE
+            },
+          },
+        ]
+      }
+    ]
+  }
 
 r = requests.post(SLACK_WEBHOOK_URL, headers=HEADERS, json=PAYLOAD)
 print(r.content)
