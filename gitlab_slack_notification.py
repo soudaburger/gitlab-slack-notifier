@@ -40,7 +40,7 @@ CONSUMERS_MESSAGE = "[CONSUMERS] {0}".format(CONSUMERS)
 
 HEADERS = {'Content-type': 'application/json'}
 
-if CONSUMERS == "":
+if CONSUMERS is None:
   PAYLOAD = {
     "attachments": [
       {
